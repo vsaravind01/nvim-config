@@ -7,10 +7,11 @@ return {
     },
     config = function()
         local nvim_tree = require("nvim-tree")
+        vim.g.nvim_tree_respect_buf_cwd = 1
         nvim_tree.setup {
             update_focused_file = {
                 enable = true,
-                update_cwd = true
+                update_cwd = false,
             },
             renderer = {
                 root_folder_modifier = ":t",

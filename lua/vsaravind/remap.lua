@@ -1,6 +1,14 @@
 local ts_builtin = require('telescope.builtin')
 local wk = require("which-key")
 local gs = require("gitsigns")
+local conform = require("conform")
+
+local Terminal  = require('toggleterm.terminal').Terminal
+local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
+
+function _lazygit_toggle()
+  lazygit:toggle()
+end
 
 wk.add(
 {
@@ -22,7 +30,7 @@ wk.add(
     {
         "<leader>gj",
         function()
-            gs.next_hunk()
+            gs.nav_hunk('next')
         end,
         mode="n",
         desc="Next hunk"
@@ -30,7 +38,7 @@ wk.add(
     {
         "<leader>gk",
         function()
-            gs.prev_hunk()
+            gs.nav_hunk('prev')
         end,
         mode="n",
         desc="Prev hunk"
@@ -78,9 +86,9 @@ wk.add(
 
     -- TELESCOPE REMAPS
     {
-        "<leader>pf", 
-        ts_builtin.find_files, 
-        mode="n", 
+        "<leader>pf",
+        ts_builtin.find_files,
+        mode="n",
         desc="Find files"
     },
     {
@@ -111,5 +119,80 @@ wk.add(
         ts_builtin.help_tags,
         mode="n",
         desc="Open help tags"
+    },
+    -- FORMATTERS
+    {
+        "<leader>pa",
+        function()
+            conform.format(
+            {
+                formatters = {"autopep8"},
+            })
+        end,
+        mode="n",
+        desc="Python - Format with autopep8"
+    },
+    {
+        "<leader>py",
+        function()
+            conform.format({
+                formatters = {"yapf"},
+            })
+        end,
+        mode="n",
+        desc="Python - Format with yapf"
+    },
+    {
+        "<leader>pb",
+        function()
+            conform.format({
+                formatters = {"black"},
+            })
+        end,
+        mode="n",
+        desc="Python - Format with black"
+    },
+    -- LSP
+    {
+        "K",
+        "<cmd>Lspsaga hover_doc<cr>",
+        mode="n",
+        desc="Hover Doc"
+    },
+    {
+        "ga",
+        "<cmd>Lspsaga code_action<cr>",
+        mode="n",
+        desc="Code Action"
+    },
+    {
+        "<leader>f",
+        "<cmd>Lspsaga finder<cr>",
+        mode="n",
+        desc="Open finder"
+    },
+    {
+        "t",
+        "<cmd>Lspsaga term_toggle<cr>",
+        mode="n",
+        desc="Float terminal"
+    },
+    {
+        "]e",
+        "<cmd>Lspsaga diagnostic_jump_next<cr>",
+        mode="n",
+        desc="Jump next diagnostic"
+    },
+    {
+        "[e",
+        "<cmd>Lspsaga diagnostic_jump_prev<cr>",
+        mode="n",
+        desc="Jump prev diagnostic"
+    },
+    {
+        "gg",
+        "<cmd>lua _lazygit_toggle()<cr>",
+        mode="n",
+        desc="Toggle lazygit"
     }
 })
