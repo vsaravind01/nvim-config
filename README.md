@@ -1,0 +1,4 @@
+nvim-config
+--------------
+
+~/.config/nvim
