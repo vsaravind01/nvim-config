@@ -77,7 +77,8 @@ return {
                             'jsonls',
                             'marksman',
                             'yamlls',
-                            'pyright'
+                            'pyright',
+                            'gopls'
                         }
                     })
                 end
@@ -93,7 +94,8 @@ return {
         conform.setup({
             formatters_by_ft = {
                 lua = { "stylua" },
-                python = { "yapf", "flake8", "isort", "black", "autopep8" }
+                python = { "yapf", "flake8", "isort", "black", "autopep8" },
+                go = { "goimports", "gofmt" }
             }
         })
 
@@ -103,6 +105,14 @@ return {
         capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
         lspconfig.pyright.setup({
+            capabilities = capabilities,
+            on_attach = on_attach
+        })
+        lspconfig.jsonls.setup({
+            capabilities = capabilities,
+            on_attach = on_attach
+        })
+        lspconfig.gopls.setup({
             capabilities = capabilities,
             on_attach = on_attach
         })

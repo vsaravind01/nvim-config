@@ -2,8 +2,12 @@ return {
     "hrsh7th/nvim-cmp",
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
         "L3MON4D3/LuaSnip",
-        "saadparwaiz1/cmp_luasnip"
+        "saadparwaiz1/cmp_luasnip",
+        "hrsh7th/cmp-nvim-lsp-signature-help",
+        "rafamadriz/friendly-snippets"
     },
     config = function()
         local has_words_before = function()
@@ -14,6 +18,7 @@ return {
 
         local cmp = require('cmp')
         local luasnip = require('luasnip')
+        require("luasnip.loaders.from_vscode").lazy_load()
 
         cmp.setup({
             snippet = {
@@ -21,8 +26,9 @@ return {
                     luasnip.lsp_expand(args.body)
                 end
             },
-            completion = {
-                autocomplete = false
+            window = {
+                completion = cmp.config.window.bordered(),
+                documentation = cmp.config.window.bordered()
             },
             mapping = cmp.mapping.preset.insert ({
                 ["<Tab>"] = cmp.mapping(function(fallback)
@@ -45,13 +51,18 @@ return {
                         fallback()
                     end
                 end, { "i", "s" }),
-                ["<c-e>"] = cmp.mapping.abort(),
+                ["<C-Space>"] = cmp.mapping.complete,
+                ["<C-e>"] = cmp.mapping.abort(),
                 ["<CR>"] = cmp.mapping.confirm({ select=true }),
             }),
-            sources = {
+            sources = cmp.config.sources({
                 { name = "nvim_lsp" },
                 { name = "luasnip" },
-            }
+                { name = "path" }
+            }, {
+                { name = "buffer" },
+                { name = 'nvim_lsp_signature_help' },
+            })
         })
     end
 }

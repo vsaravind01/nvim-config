@@ -18,5 +18,5 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	spec = "vsaravind.lazy",
 	install = { colorscheme = { "gruvbox" } },
-	checker = { enabled = true },
+	checker = { enabled = true, frequency = 259200 },
 })

@@ -94,7 +94,7 @@ wk.add(
     {
         "<leader>ps",
         function()
-            ts_builtin.grep_string({ search = vim.fn.input("Grep >") })
+            ts_builtin.live_grep()
         end,
         mode="n",
         desc="Grep string"
@@ -113,6 +113,14 @@ wk.add(
         ts_builtin.git_files,
         mode="n",
         desc="Find git files"
+    },
+    {
+        "<leader>gf",
+        function()
+            ts_builtin.git_files({ git_command = {"git", "ls-files", "-m"} })
+        end,
+        mode="n",
+        desc="Find git modified files"
     },
     {
         "<leader>vh",
@@ -172,7 +180,7 @@ wk.add(
         desc="Open finder"
     },
     {
-        "t",
+        "<C-`>",
         "<cmd>Lspsaga term_toggle<cr>",
         mode="n",
         desc="Float terminal"
@@ -190,7 +198,7 @@ wk.add(
         desc="Jump prev diagnostic"
     },
     {
-        "gg",
+        "<leader>gg",
         "<cmd>lua _lazygit_toggle()<cr>",
         mode="n",
         desc="Toggle lazygit"
