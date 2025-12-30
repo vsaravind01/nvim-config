@@ -17,13 +17,19 @@ wk.add(
         function()
             require("which-key").show({ global = false })
         end,
-        desc = "Buffer Local Keymaps (which-key)",
+        desc="Buffer Local Keymaps (which-key)",
     },
     {
         "<leader>e",
         "<cmd>NvimTreeToggle<cr>",
         mode="n",
-        desc = "File Explorer",
+        desc="File Explorer",
+    },
+    {
+        "<leader>n",
+        "<cmd>noh<cr>",
+        mode="n",
+        desc="Clear Highlight"
     },
 
     -- GITSIGNS KEYMAP
@@ -202,5 +208,37 @@ wk.add(
         "<cmd>lua _lazygit_toggle()<cr>",
         mode="n",
         desc="Toggle lazygit"
+    },
+
+    -- Debugger
+    {
+        "<leader>dt",
+        "<cmd>lua require('dapui').toggle()<cr>",
+        mode="n",
+        desc="Debugger - Toggle UI"
+    },
+    {
+        "<leader>db",
+        "<cmd>DapToggleBreakpoint<cr>",
+        mode="n",
+        desc="Debugger - Toggle Breakpoint"
+    },
+    {
+        "<leader>dc",
+        "<cmd>DapContinue<cr>",
+        mode="n",
+        desc="Debugger - Continue"
+    },
+    {
+        "<leader>dr",
+        "<cmd>lua require('dapui').open({ reset = true })<cr>",
+        mode="n",
+        desc="Debugger - Reset UI"
+    },
+    {
+        "<leader>dnt",
+        "<cmd>lua require('neotest').run.run({ strategy = 'dap' })",
+        mode="n",
+        desc="Debugger - Run Nearest Test"
     }
 })

@@ -13,8 +13,6 @@ return {
         { '<leader>wa', '<cmd>SessionToggleAutoSave<CR>', desc = 'Toggle autosave' },
     },
 
-    ---@module "auto-session"
-    ---@type AutoSession.Config
     opts = {
         suppressed_dirs = { '~/', '~/Downloads', '/' },
     },
